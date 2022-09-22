@@ -60,18 +60,20 @@ public class ActivoService implements IActivoService {
 
 	@Override
 	public ActivoDto createActivo(ActivoDto activo) {
+		log.info("Ejecutando consulta a base de datos");
 		return mapper.entityToDto(repository.save(mapper.dtoToEntity(activo)));
 	}
 
 	@Override
 	public ActivoDto updateActivo(ActivoDto activo) {
 		if( ! existeActivo(activo.getSerial()) ) { throw new ActivoNoEncontradoException() ;}
+		log.info("Ejecutando consulta a base de datos");
 		return mapper.entityToDto( repository.save(mapper.dtoToEntity(activo)) );
 	}
 	
 	
 	private boolean existeActivo(Integer serial)  {
-		//ActivoEntity response = repository.findBySerial(activo.getSerial());
+		log.info("Validando existencia de activo");
 		return repository.findBySerial(serial) != null;
 	}
 
