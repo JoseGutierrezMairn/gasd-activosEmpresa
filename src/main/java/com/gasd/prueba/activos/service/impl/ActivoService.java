@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.gasd.prueba.activos.dto.ActivoDto;
-import com.gasd.prueba.activos.dto.ResponseDto;
 import com.gasd.prueba.activos.entity.ActivoEntity;
 import com.gasd.prueba.activos.exception.ActivoExistenteException;
 import com.gasd.prueba.activos.exception.ActivoNoEncontradoException;
@@ -18,6 +17,10 @@ import com.gasd.prueba.activos.mapper.IActivoMapper;
 import com.gasd.prueba.activos.repository.IActivoRepository;
 import com.gasd.prueba.activos.service.IActivoService;
 
+/*
+ * Esta clase es el servicio, se encarga de llevar a cabo la logica de las solicitudes del cliente..
+ * @author Jose Gutierrez Marin 
+ */
 @Service
 public class ActivoService implements IActivoService {
 
@@ -30,6 +33,13 @@ public class ActivoService implements IActivoService {
 	
 	private Logger log = LoggerFactory.getLogger(ActivoService.class);
 	
+	
+	/*
+	 * Realiza la consulta en la base de datos según el tipo de activo especificado
+	 * @param tipo El parámetro tipo indica el tipo de activo que se quiere consultar en la base de datos
+	 * @return Una lista con todos los activos que cumplen con el tipo indicado
+	 * @throws ActivoNoEncontradoException Dado el tipo no se encontró ningun activo en la base de datos
+	 */
 	@Override
 	public List<ActivoDto> getActivoPorTipo(String tipo) {
 		log.info("Ejecutando consulta a base de datos");
@@ -39,13 +49,27 @@ public class ActivoService implements IActivoService {
 		return mapper.listEntityToDto(answ) ;
 	}
 
+	
+	/*
+	 * Realiza la consulta en la base de datos según la fecha de compra del activo
+	 * @param fechaCompra Es la fecha en la cual se compró el activo y por la cual se quiere filtrar la búsqueda en esta solicitud
+	 * @return Una lista con todos los activos que cumplen con la fecha de compra indicada
+	 * @throws ActivoNoEncontradoException Dada la fecha no se encontró ningun activo en la base de datos
+	 */
 	@Override
 	public List<ActivoDto> getArctivoPorFechaCompra(Date fechaCompra) {
 		log.info("Ejecutando consulta a base de datos");
 		List<ActivoEntity> answ = repository.findByFechaCompra(fechaCompra);
+		if(!(answ.size() > 0)) {throw new ActivoNoEncontradoException();}
 		return mapper.listEntityToDto(answ);
 	}
-
+	
+	/*
+	 * Realiza la consulta en la base de datos según el serial especificado
+	 * @param serial El parámetro serial indica el serial del activo que se quiere consultar en la base de datos
+	 * @return Dto que contiene la información del activo encontrado dado su serial
+	 * @throws ActivoNoEncontradoException Dado el tipo no se encontró ningun activo en la base de datos
+	 */
 	@Override
 	public ActivoDto getActivoPorSerial( Integer serial ) {
 		log.info("Ejecutando consulta a base de datos");
@@ -58,12 +82,27 @@ public class ActivoService implements IActivoService {
 		
 	}
 
+	
+	/*
+	 * Realiza la petición de almacenar un nuevo activo a la base de datos
+	 * @param nuevoActivo El parámetro nuevoActivo es el nuevo activo que se quiere almacenar en la base de datos
+	 * @return El Dto del activo almacenado satisfactoriamente en la base de datos
+	 * @throws SQLIntegrityConstraintViolationException Se violó alguna restricción establecida en la base de datos
+	 */
 	@Override
 	public ActivoDto createActivo(ActivoDto activo) {
 		log.info("Ejecutando consulta a base de datos");
 		return mapper.entityToDto(repository.save(mapper.dtoToEntity(activo)));
 	}
 
+	
+	/*
+	 * Realiza la petición de actualizar un activo a la base de datos
+	 * @param activo El parámetro activo es el activo que se quiere actualizar con los campos que se requieran cambiar actualizados
+	 * @return El Dto del activo actualizado satisfactoriamente en la base de datos
+	 * @throws SQLIntegrityConstraintViolationException Se violó alguna restricción establecida en la base de datos
+	 * @throws ActivoNoEncontradoException Dado el activo no se encontró ningun activo en la base de datos
+	 */
 	@Override
 	public ActivoDto updateActivo(ActivoDto activo) {
 		if( ! existeActivo(activo.getSerial()) ) { throw new ActivoNoEncontradoException() ;}
@@ -71,7 +110,11 @@ public class ActivoService implements IActivoService {
 		return mapper.entityToDto( repository.save(mapper.dtoToEntity(activo)) );
 	}
 	
-	
+	/*
+	 * Realiza consulta en la base de datos para validar si un activo existe
+	 * @param serial El serial del activo del cual se quiere validar su exsitencia
+	 * @return Booleano de ser true el activo existe, de lo contrario no existe
+	 */
 	private boolean existeActivo(Integer serial)  {
 		log.info("Validando existencia de activo");
 		return repository.findBySerial(serial) != null;

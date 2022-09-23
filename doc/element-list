@@ -1,0 +1,11 @@
+com.gasd.prueba.activos
+com.gasd.prueba.activos.config
+com.gasd.prueba.activos.controller
+com.gasd.prueba.activos.dto
+com.gasd.prueba.activos.entity
+com.gasd.prueba.activos.error
+com.gasd.prueba.activos.exception
+com.gasd.prueba.activos.mapper
+com.gasd.prueba.activos.repository
+com.gasd.prueba.activos.service
+com.gasd.prueba.activos.service.impl
