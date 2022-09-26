@@ -26,7 +26,9 @@ Para generar el javadoc ejecutamos el siguiente codigo desde la consola dentro d
 
 Podemos consultar la documentación generada el archivo: `target\site\apidocs`  
 *Este es un ejemplo de como se ve la documentación generada en este proyecto*
-![check javadoc2](https://github.com/JoseGutierrezMairn/gasd-activosEmpresa/blob/master/img/javadoc2.PNG?raw=true)
+![check javadoc2]
+
+[(https://github.com/JoseGutierrezMairn/gasd-activosEmpresa/blob/master/img/javadoc2.PNG?raw=true)]
 
 
 # Archivos vital importancia
