@@ -19,10 +19,10 @@ Para descargar el proyecto realizaremos los siguientes pasos desde el **Simbolo 
 Para probar el proyecto podemos correr las pruebas que se encuentran en configuradas en la aplicacion 
 usando maven podemos correr las pruebas mencionadas digitando desde la linea de comandos situados dentro de la carpeta raiz del proyecto
 `mvn test`
-![Pruebas desde maven](https://github.com/JoseGutierrezMairn/gasd-activosEmpresa/tree/master/img/pruebas.PNG?raw=true) 
+![Pruebas desde maven](https://github.com/JoseGutierrezMairn/gasd-activosEmpresa/blob/master/img/pruebas.png?raw=true) 
 
 Para generar el javadoc ejecutamos el siguiente codigo desde la consola dentro de la carpeta raiz del proyecto: `mvn javadoc:javadoc`  
-![generando javadoc](https://github.com/JoseGutierrezMairn/gasd-activosEmpresa/master/img/javadoc.PNG?raw=true) 
+![generando javadoc](https://github.com/JoseGutierrezMairn/gasd-activosEmpresa/blob/master/img/javadoc.png?raw=true) 
 
 Podemos consultar la documentación generada el archivo: `target\site\apidocs`  
 *Este es un ejemplo de como se ve la documentación generada en este proyecto*
