@@ -1,7 +1,12 @@
 package com.gasd.prueba.activos.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,10 +16,15 @@ import org.springframework.stereotype.Service;
 
 import com.gasd.prueba.activos.dto.ActivoDto;
 import com.gasd.prueba.activos.entity.ActivoEntity;
+import com.gasd.prueba.activos.entity.ActivoGuardarEntity;
+import com.gasd.prueba.activos.entity.ResponsableEntity;
 import com.gasd.prueba.activos.exception.ActivoExistenteException;
 import com.gasd.prueba.activos.exception.ActivoNoEncontradoException;
+import com.gasd.prueba.activos.exception.SerialActivoObligatorioException;
 import com.gasd.prueba.activos.mapper.IActivoMapper;
+import com.gasd.prueba.activos.repository.IActivoGuardarRepository;
 import com.gasd.prueba.activos.repository.IActivoRepository;
+import com.gasd.prueba.activos.repository.IResponsableRepository;
 import com.gasd.prueba.activos.service.IActivoService;
 
 /*
@@ -27,6 +37,12 @@ public class ActivoService implements IActivoService {
 	
 	@Autowired
 	private IActivoRepository repository;
+	
+	@Autowired
+	private IActivoGuardarRepository guardarRepo;
+	
+	@Autowired
+	private IResponsableRepository responsableRepo;
 	
 	@Autowired
 	private IActivoMapper mapper;
@@ -92,7 +108,7 @@ public class ActivoService implements IActivoService {
 	@Override
 	public ActivoDto createActivo(ActivoDto activo) {
 		log.info("Ejecutando consulta a base de datos");
-		return mapper.entityToDto(repository.save(mapper.dtoToEntity(activo)));
+		return mapper.guardarEntityToDto(guardarRepo.save(mapper.dtoToGuardarEntity(activo)));
 	}
 
 	
@@ -105,19 +121,55 @@ public class ActivoService implements IActivoService {
 	 */
 	@Override
 	public ActivoDto updateActivo(ActivoDto activo) {
-		if( ! existeActivo(activo.getSerial()) ) { throw new ActivoNoEncontradoException() ;}
+		ActivoEntity entity = existeActivo(activo.getSerial());
+		if( !(entity != null) )  { 
+			if( activo.getSerial() != null ) { throw new ActivoNoEncontradoException(); }
+			throw new SerialActivoObligatorioException();
+			}
+		activo = actualizarData(activo, entity);
 		log.info("Ejecutando consulta a base de datos");
-		return mapper.entityToDto( repository.save(mapper.dtoToEntity(activo)) );
+		guardarRepo.save( mapper.dtoToGuardarEntity( activo)  );
+		System.out.println("hola k ase");
+		if( activo.getSerialActivo() != null && activo.getSerialActivo() == activo.getSerial()) {
+			ResponsableEntity responsable = responsableRepo.save(mapper.dtoToResponsableEntity(activo));
+			activo.setIdPersona( responsable.getIdPersona() );
+			activo.setIdArea( responsable.getIdArea() );
+			activo.setSerialActivo( responsable.getSerialActivo() );
+		}
+		return activo;
 	}
 	
 	/*
 	 * Realiza consulta en la base de datos para validar si un activo existe
 	 * @param serial El serial del activo del cual se quiere validar su exsitencia
-	 * @return Booleano de ser true el activo existe, de lo contrario no existe
+	 * @return Entidad si la entidad no existe retorna null
 	 */
-	private boolean existeActivo(Integer serial)  {
+	private ActivoEntity existeActivo(Integer serial)  {
 		log.info("Validando existencia de activo");
-		return repository.findBySerial(serial) != null;
+		return repository.findBySerial(serial);
+	}
+	
+	
+	
+	/*
+	 * Se encarga de mapear la información valida de una entidad a un dto
+	 * @param dto el dto del que se quiere mapear la información
+	 * @param entity la entidad a la que se quiere mapear la información del dto
+	 * @return  el dto con los datos ya mapeados
+	 */
+	private ActivoDto actualizarData(ActivoDto dto, ActivoEntity entity) {
+		log.info("Actualizando data de entidad");
+		dto.setNombre( dto.getNombre() != null ? dto.getNombre() : entity.getNombre() );
+		dto.setDescripcion( dto.getDescripcion() != null ? dto.getDescripcion() : entity.getDescripcion() );
+		dto.setTipo( dto.getTipo() != null ? dto.getTipo() : entity.getTipo() );
+		dto.setNumIntInventario( dto.getNumIntInventario() != null ? dto.getNumIntInventario() : entity.getNumIntInventario() );
+		dto.setPeso( dto.getPeso() != null ? dto.getPeso() : entity.getPeso() );
+		dto.setAlto( dto.getAlto() != null ? dto.getAlto() : entity.getAlto() );
+		dto.setAncho( dto.getAncho() != null ? dto.getAncho() : entity.getAncho() );
+		dto.setValorCompra( dto.getValorCompra() != null ? dto.getValorCompra() : entity.getValorCompra() );
+		dto.setFechaCompra( dto.getFechaCompra() != null ? dto.getFechaCompra() : entity.getFechaCompra() );
+		
+		return dto;
 	}
 
 

@@ -36,7 +36,7 @@ class ActivosApplicationTests {
 	
 	@Test
 	void findBySerial() {
-		activo = new ActivoEntity(1, "Escritorio", "Escritorio de cocobolo", "a", 5, 50.0, 60, 30, 1000000, new Date());
+		activo = new ActivoEntity(1, "Escritorio", "Escritorio de cocobolo", "a", 5, 50.0, 60.0, 30.0, 1000000, new Date(), null, null, null);
 		when(activoRepository.findBySerial(any(Integer.class) ) )
 		.thenReturn(activo);
 		Assertions.assertNotNull(activoService.getActivoPorSerial(1));
@@ -46,7 +46,7 @@ class ActivosApplicationTests {
 	
 	@Test
 	void findByTipo() {
-		activo = new ActivoEntity(1, "Escritorio", "Escritorio de cocobolo", "a", 5, 50.0, 60, 30, 1000000, new Date());
+		activo = new ActivoEntity(1, "Escritorio", "Escritorio de cocobolo", "a", 5, 50.0, 60.0, 30.0, 1000000, new Date(), null, null, null);
 		when(activoRepository.findByTipo(any(String.class) ) )
 		.thenReturn(Arrays.asList(activo));
 		Assertions.assertNotNull(activoService.getActivoPorTipo("a"));
@@ -57,7 +57,7 @@ class ActivosApplicationTests {
 	
 	@Test
 	void findByFechaCompra() {
-		activo = new ActivoEntity(1, "Escritorio", "Escritorio de cocobolo", "a", 5, 50.0, 60, 30, 1000000, new Date());
+		activo = new ActivoEntity(1, "Escritorio", "Escritorio de cocobolo", "a", 5, 50.0, 60.0, 30.0, 1000000, new Date(), null, null, null);
 		when(activoRepository.findByFechaCompra(any(Date.class) ) )
 		.thenReturn(Arrays.asList(activo));
 		Assertions.assertNotNull(activoService.getArctivoPorFechaCompra(new Date()));

@@ -38,13 +38,13 @@ public class ActivoEntity {
 	private Integer numIntInventario;
 	
 	@Column(name="peso")
-	private double peso;
+	private Double peso;
 	
 	@Column(name="alto")
-	private double alto;
+	private Double alto;
 	
 	@Column(name="ancho")
-	private double ancho;
+	private Double ancho;
 	
 	@Column(name="valor_compra")
 	private Integer valorCompra;
@@ -52,13 +52,25 @@ public class ActivoEntity {
 	@Column(name = "fecha_compra")
 	@Temporal(TemporalType.DATE)
 	private Date fechaCompra;
-
+	
+	@Column(name = "id_persona")
+	private Integer idPersona;
+	
+	@Column(name = "id_area")
+	private Integer idArea;
+	
+	@Column(name = "serial_activo")
+	private Integer serialActivo;
 	
 	public ActivoEntity() {}
 
 
+
+
+
 	public ActivoEntity(Integer serial, String nombre, String descripcion, String tipo, Integer numIntInventario,
-			double peso, double alto, double ancho, Integer valorCompra, Date fechaCompra) {
+			Double peso, Double alto, Double ancho, Integer valorCompra, Date fechaCompra, Integer idPersona,
+			Integer idArea, Integer serialActivo) {
 		this.serial = serial;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -69,7 +81,13 @@ public class ActivoEntity {
 		this.ancho = ancho;
 		this.valorCompra = valorCompra;
 		this.fechaCompra = fechaCompra;
+		this.idPersona = idPersona;
+		this.idArea = idArea;
+		this.serialActivo = serialActivo;
 	}
+
+
+
 
 
 	/*
@@ -172,7 +190,7 @@ public class ActivoEntity {
 	 * Metodo que retorna el valor del peso
 	 * @return El valor del peso del activo
 	 */
-	public double getPeso() {
+	public Double getPeso() {
 		return peso;
 	}
 
@@ -181,7 +199,7 @@ public class ActivoEntity {
 	/*
 	 * Metodo que cambia el valor del peso
 	 */
-	public void setPeso(double peso) {
+	public void setPeso(Double peso) {
 		this.peso = peso;
 	}
 
@@ -191,7 +209,7 @@ public class ActivoEntity {
 	 * Metodo que retorna el valor del alto del activo
 	 * @return El valor del alto del activo
 	 */
-	public double getAlto() {
+	public Double getAlto() {
 		return alto;
 	}
 
@@ -200,7 +218,7 @@ public class ActivoEntity {
 	/*
 	 * Metodo que cambia el valor del alto
 	 */
-	public void setAlto(double alto) {
+	public void setAlto(Double alto) {
 		this.alto = alto;
 	}
 
@@ -210,7 +228,7 @@ public class ActivoEntity {
 	 * Metodo que retorna el valor del ancho del activo
 	 * @return El valor del ancho del activo
 	 */
-	public double getAncho() {
+	public Double getAncho() {
 		return ancho;
 	}
 
@@ -219,7 +237,7 @@ public class ActivoEntity {
 	/*
 	 * Metodo que cambia el valor del ancho
 	 */
-	public void setAncho(double ancho) {
+	public void setAncho(Double ancho) {
 		this.ancho = ancho;
 	}
 
@@ -259,6 +277,54 @@ public class ActivoEntity {
 	 */
 	public void setFechaCompra(Date fechaCompra) {
 		this.fechaCompra = fechaCompra;
+	}
+
+
+
+
+
+	public Integer getIdPersona() {
+		return idPersona;
+	}
+
+
+
+
+
+	public void setIdPersona(Integer idPersona) {
+		this.idPersona = idPersona;
+	}
+
+
+
+
+
+	public Integer getIdArea() {
+		return idArea;
+	}
+
+
+
+
+
+	public void setIdArea(Integer idArea) {
+		this.idArea = idArea;
+	}
+
+
+
+
+
+	public Integer getSerialActivo() {
+		return serialActivo;
+	}
+
+
+
+
+
+	public void setSerialActivo(Integer serialActivo) {
+		this.serialActivo = serialActivo;
 	}
 
 	

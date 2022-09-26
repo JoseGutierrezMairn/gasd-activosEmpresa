@@ -1,53 +1,59 @@
-package com.gasd.prueba.activos.dto;
+package com.gasd.prueba.activos.entity;
 
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
-import com.gasd.prueba.activos.entity.ActivoGuardarEntity;
 
-/*
- * Esta clase es el objeto plano de los datos almacenados en la base de datos
- * @author Jose Gutierrez Marin 
- */
-public class ActivoDto {
+@Entity
+@Table(name = "activo")
+public class ActivoGuardarEntity {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="serial")
 	private Integer serial;
-
+	
+	@Column(name="nombre")
 	private String nombre;
 	
+	@Column(name="descripcion")
 	private String descripcion;
-
+	
+	@Column(name="tipo")
 	private String tipo;
 	
+	@Column(name="num_int_inventario")
 	private Integer numIntInventario;
-
+	
+	@Column(name="peso")
 	private Double peso;
 	
+	@Column(name="alto")
 	private Double alto;
 	
+	@Column(name="ancho")
 	private Double ancho;
 	
+	@Column(name="valor_compra")
 	private Integer valorCompra;
 	
-	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Bogota")
+	@Column(name = "fecha_compra")
+	@Temporal(TemporalType.DATE)
 	private Date fechaCompra;
-	
-	private Integer idPersona;
 
-	private Integer idArea;
+	public ActivoGuardarEntity() {	}
 
-	private Integer serialActivo;
 
-	public ActivoDto() {	}
-
-	
-
-	public ActivoDto(Integer serial, String nombre, String descripcion, String tipo, Integer numIntInventario,
-			Double peso, Double alto, Double ancho, Integer valorCompra, Date fechaCompra, Integer idPersona,
-			Integer idArea, Integer serialActivo) {
+	public ActivoGuardarEntity(Integer serial, String nombre, String descripcion, String tipo, Integer numIntInventario,
+			Double peso, Double alto, Double ancho, Integer valorCompra, Date fechaCompra) {
 		this.serial = serial;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -58,10 +64,8 @@ public class ActivoDto {
 		this.ancho = ancho;
 		this.valorCompra = valorCompra;
 		this.fechaCompra = fechaCompra;
-		this.idPersona = idPersona;
-		this.idArea = idArea;
-		this.serialActivo = serialActivo;
 	}
+
 
 
 
@@ -72,13 +76,18 @@ public class ActivoDto {
 	public Integer getSerial() {
 		return serial;
 	}
-	
+
+
+
+
 	/*
 	 * Metodo que cambia el valor del serial
 	 */
 	public void setSerial(Integer serial) {
 		this.serial = serial;
 	}
+
+
 
 	/*
 	 * Metodo que retorna el valor del nombre del activo
@@ -88,12 +97,16 @@ public class ActivoDto {
 		return nombre;
 	}
 
+
+
 	/*
 	 * Metodo que cambia el valor del nombre
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+
 
 	/*
 	 * Metodo que retorna el valor de la descripcion
@@ -102,13 +115,17 @@ public class ActivoDto {
 	public String getDescripcion() {
 		return descripcion;
 	}
-	
+
+
+
 	/*
 	 * Metodo que cambia el valor de la descripcion
 	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
+
 
 	/*
 	 * Metodo que retorna el valor del tipo
@@ -118,12 +135,16 @@ public class ActivoDto {
 		return tipo;
 	}
 
+
+
 	/*
 	 * Metodo que cambia el valor del tipo
 	 */
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+
+
 
 	/*
 	 * Metodo que retorna el valor del numero interno de inventario
@@ -133,12 +154,16 @@ public class ActivoDto {
 		return numIntInventario;
 	}
 
+
+
 	/*
 	 * Metodo que cambia el valor del numero interno de inventario
 	 */
 	public void setNumIntInventario(Integer numIntInventario) {
 		this.numIntInventario = numIntInventario;
 	}
+
+
 
 	/*
 	 * Metodo que retorna el valor del peso
@@ -148,12 +173,16 @@ public class ActivoDto {
 		return peso;
 	}
 
+
+
 	/*
 	 * Metodo que cambia el valor del peso
 	 */
 	public void setPeso(Double peso) {
 		this.peso = peso;
 	}
+
+
 
 	/*
 	 * Metodo que retorna el valor del alto del activo
@@ -163,12 +192,16 @@ public class ActivoDto {
 		return alto;
 	}
 
+
+
 	/*
 	 * Metodo que cambia el valor del alto
 	 */
 	public void setAlto(Double alto) {
 		this.alto = alto;
 	}
+
+
 
 	/*
 	 * Metodo que retorna el valor del ancho del activo
@@ -179,12 +212,15 @@ public class ActivoDto {
 	}
 
 
+
 	/*
 	 * Metodo que cambia el valor del ancho
 	 */
 	public void setAncho(Double ancho) {
 		this.ancho = ancho;
 	}
+
+
 
 	/*
 	 * Metodo que retorna el valor del valor de compra
@@ -195,12 +231,15 @@ public class ActivoDto {
 	}
 
 
+
 	/*
 	 * Metodo que cambia el valor del valor de compra
 	 */
 	public void setValorCompra(Integer valorCompra) {
 		this.valorCompra = valorCompra;
 	}
+
+
 
 	/*
 	 * Metodo que retorna el valor de la fecha de compra
@@ -210,6 +249,8 @@ public class ActivoDto {
 		return fechaCompra;
 	}
 
+
+
 	/*
 	 * Metodo que cambia el valor de la fecha de compra del activo
 	 */
@@ -217,42 +258,6 @@ public class ActivoDto {
 		this.fechaCompra = fechaCompra;
 	}
 
-
-
-	public Integer getIdPersona() {
-		return idPersona;
-	}
-
-
-
-	public void setIdPersona(Integer idPersona) {
-		this.idPersona = idPersona;
-	}
-
-
-
-	public Integer getIdArea() {
-		return idArea;
-	}
-
-
-
-	public void setIdArea(Integer idArea) {
-		this.idArea = idArea;
-	}
-
-
-
-	public Integer getSerialActivo() {
-		return serialActivo;
-	}
-
-
-
-	public void setSerialActivo(Integer serialActivo) {
-		this.serialActivo = serialActivo;
-	}
-	
 	
 	
 }

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,6 +22,7 @@ import com.gasd.prueba.activos.dto.ActivoDto;
 import com.gasd.prueba.activos.service.IActivoService;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(path = "/api/v1/activo")
 /*
  * Esta clase es el controlador, se encarga de recibir las peticiones http realizadas por un cliente.
@@ -41,6 +43,7 @@ public class ActivoController {
 	 */
 	@GetMapping(path = "/porTipo")
 	public List<ActivoDto> getActivoPorTipo( @RequestParam String tipo ){
+		log.info("Gestionando consulta activo por tipo");
 		 return activoService.getActivoPorTipo(tipo);
 	}
 	
@@ -52,6 +55,7 @@ public class ActivoController {
 	 */
 	@GetMapping(path = "/porFechaCompra")
 	public List<ActivoDto> getActivoPorFechaCompra(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaCompra) {
+		log.info("Gestionando consulta activo por fecha compra");
 		return activoService.getArctivoPorFechaCompra(fechaCompra);
 	}
 	
@@ -63,6 +67,7 @@ public class ActivoController {
 	 */
 	@GetMapping(path = "/porSerial")
 	public ActivoDto getActivoPorSerial(  @RequestParam Integer serial ){	
+		log.info("Gestionando consulta activo por serial");
 		 return activoService.getActivoPorSerial( serial );
 	}
 	
@@ -74,6 +79,7 @@ public class ActivoController {
 	 */
 	@PostMapping(path = "/crearActivo", consumes = "application/json", produces = "application/json")
 	public ActivoDto createActivo(@RequestBody ActivoDto nuevoActivo) {
+		log.info("Gestionando consulta nuevo activo");
 		return activoService.createActivo(nuevoActivo);
 	}
 	
@@ -86,6 +92,7 @@ public class ActivoController {
 	 */
 	@PutMapping(path = "/actualizarActivo", consumes = "application/json", produces = "application/json")
 	public ActivoDto updateActivo (@RequestBody ActivoDto activo) {
+		log.info("Gestionando consulta actualizar activo");
 		return activoService.updateActivo(activo);
 	}
 	
