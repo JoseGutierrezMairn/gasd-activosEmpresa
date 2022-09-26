@@ -1,0 +1,155 @@
+{
+	"info": {
+		"_postman_id": "e22ae0f9-14f3-47fb-85eb-9f1f83a35e91",
+		"name": "activos_empresa",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ConsultarActivoPorTipo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/activo/porTipo?tipo=a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"activo",
+						"porTipo"
+					],
+					"query": [
+						{
+							"key": "tipo",
+							"value": "a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultarActivoPorSerial",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/activo/porSerial?serial=44",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"activo",
+						"porSerial"
+					],
+					"query": [
+						{
+							"key": "serial",
+							"value": "44"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar activo por fecha compra",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/activo/porFechaCompra?fechaCompra=2022-09-22",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"activo",
+						"porFechaCompra"
+					],
+					"query": [
+						{
+							"key": "fechaCompra",
+							"value": "2022-09-22"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Activo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"serial\": 1,\r\n    \"nombre\": \"guardar completo\",\r\n    \"descripcion\": \"desdePostman\",\r\n    \"tipo\": \"p\",\r\n    \"numIntInventario\": 200,\r\n    \"peso\": 11,\r\n    \"alto\": 11,\r\n    \"ancho\": 11,\r\n    \"valorCompra\": 11,\r\n    \"fechaCompra\": \"2025-12-24\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/activo/crearActivo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"activo",
+						"crearActivo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar Activo",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"serial\": 46,\r\n    \"idArea\" : 5,\r\n    \"idPersona\" : null,\r\n    \"serialActivo\": 46\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/activo/actualizarActivo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"activo",
+						"actualizarActivo"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

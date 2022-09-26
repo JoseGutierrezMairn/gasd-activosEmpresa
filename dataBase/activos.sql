@@ -27,9 +27,15 @@ CREATE TABLE `persona` (
 )
 
 CREATE TABLE `responsable` (
-  `id_responsable` int(11) NOT NULL,
-  `activo` int(11) NOT NULL,
-  PRIMARY KEY (`id_responsable`,`activo`)
+  `id_persona` int(11) DEFAULT NULL,
+  `id_area` int(11) DEFAULT NULL,
+  `serial_activo` int(11) NOT NULL,
+  PRIMARY KEY (`serial_activo`),
+  KEY `responsable_area_fk` (`id_area`),
+  KEY `responsable_persona_fk` (`id_persona`),
+  CONSTRAINT `responsable_activo_fk` FOREIGN KEY (`serial_activo`) REFERENCES `activo` (`serial`),
+  CONSTRAINT `responsable_area_fk` FOREIGN KEY (`id_area`) REFERENCES `area` (`id_area`),
+  CONSTRAINT `responsable_persona_fk` FOREIGN KEY (`id_persona`) REFERENCES `persona` (`id_persona`)
 )
 
 
@@ -44,15 +50,29 @@ CREATE TABLE `area` (
 
 
 
-/* POBLAR TABLAS */
+/* TRIGGERS */
+CREATE or replace TRIGGER add_responsable 
+   before  INSERT
+   ON  activos_empresa.responsable 
+   for each row
+begin
+	declare msg varchar(128);
+	if (new.id_persona is not null and new.id_area is not null ) then 
+		set msg ="No se puede asignar el mismo activo a una persona y un area al mismo tiempo";
+        signal sqlstate '45000' set message_text = msg;
+	end if;
+end;
 
-insert into activos_empresa.persona (id_persona, nombre) values 
-(1523464691, "Andres Jose Gutierrez Marin"),
-(1523464692, "Fabian Melo Garcia"),
-(1523464693, "Camilo Saenz ");
 
+CREATE or replace TRIGGER update_responsable 
+   before  update
+   ON  activos_empresa.responsable 
+   for each row
+begin
+	declare msg varchar(128);
+	if (new.id_persona is not null and new.id_area is not null ) then 
+		set msg ="No se puede asignar el mismo activo a una persona y un area al mismo tiempo";
+        signal sqlstate '45000' set message_text = msg;
+	end if;
+end;
 
-insert into activos_empresa.area (ciudad) values
-(3),
-(1),
-(2);

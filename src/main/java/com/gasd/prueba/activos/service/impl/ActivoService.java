@@ -129,7 +129,6 @@ public class ActivoService implements IActivoService {
 		activo = actualizarData(activo, entity);
 		log.info("Ejecutando consulta a base de datos");
 		guardarRepo.save( mapper.dtoToGuardarEntity( activo)  );
-		System.out.println("hola k ase");
 		if( activo.getSerialActivo() != null && activo.getSerialActivo() == activo.getSerial()) {
 			ResponsableEntity responsable = responsableRepo.save(mapper.dtoToResponsableEntity(activo));
 			activo.setIdPersona( responsable.getIdPersona() );
