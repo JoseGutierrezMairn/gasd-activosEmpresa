@@ -43,7 +43,7 @@ http://localhost/phpmyadmin/
 
 Hacer clic en "New" y configurar el nombre de la base de datos como "activos_empresa" y dar clic en el boton create
 
-![Crear base de datos](https://github.com/JoseGutierrezMairn/gasd-activosEmpresa/blob/master/img/creardb.png?raw=true)
+![Crear base de datos](https://github.com/JoseGutierrezMairn/gasd-activosEmpresa/blob/master/img/creardbl.png?raw=true)
 
 
 instalar [dbeaver](https://dbeaver.io/download/)
